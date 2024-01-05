@@ -4,13 +4,21 @@
   "version": "1.0.3",
   "repository": "https://github.com/axelhzf/graphql-pokemon-server",
   "license": "MIT",
+  "engines": {
+    "npm": "^9.5.1",
+    "node": "^18"
+  },
   "author": {
     "name": "Axel Hernández Ferrera",
     "email": "axelhzf@gmail.com",
     "url": "http://github.com/axelhzf"
   },
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prettier": "prettier --write --ignore-unknown .",
+    "prettier:check": "prettier --check --ignore-unknown ."
   },
   "bin": "src/index.js",
   "dependencies": {
@@ -18,5 +26,12 @@
     "express": "^4.16.4",
     "graphql": "^14.1.1",
     "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
+    "prettier": "^3.1.1"
   }
 }
