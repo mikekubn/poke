@@ -3,21 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run codegen && next dev",
     "build": "next build",
     "start": "next start",
     "ts:check": "npx tsc",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "prettier": "prettier --write --ignore-unknown .",
-    "prettier:check": "prettier --check --ignore-unknown ."
+    "prettier:check": "prettier --check --ignore-unknown .",
+    "codegen": "graphql-codegen --require --config"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.8",
+    "graphql": "^16.8.1",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "4.1.0",
+    "@graphql-codegen/introspection": "4.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -32,6 +41,7 @@
     "postcss": "^8",
     "prettier-plugin-tailwindcss": "^0.5.10",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }

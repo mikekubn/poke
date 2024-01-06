@@ -11,8 +11,10 @@
     "plugin:import/warnings",
     "plugin:import/typescript"
   ],
+  "ignorePatterns": ["graphql/generated/**.ts"],
   "plugins": ["simple-import-sort", "prefer-arrow-functions", "@typescript-eslint"],
   "rules": {
+    "import/no-unresolved": "off",
     "@typescript-eslint/explicit-function-return-type": "error",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",

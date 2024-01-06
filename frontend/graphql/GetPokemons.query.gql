@@ -1,0 +1,7 @@
+query PokemonsQueryInput($limit: Int, $offset: Int) {
+  pokemons(query: { limit: $limit, offset: $offset }) {
+    edges {
+      name
+    }
+  }
+}
