@@ -26,6 +26,8 @@ query { pokemons(query: { limit: 10, offset: 0 }) { edges { name } } }
 
 ### Frontend (`/frontend`)
 
+I have decided to use apollo client without support ssr nextjs, because I read article, regarding with rc and experimental library for it: [Apollo blog](https://www.apollographql.com/blog/how-to-use-apollo-client-with-next-js-13)
+
 Before you start with frontend part, please you should check codegen documentation for grapqhl auto generate queries and mutations.
 
 To run the server:
