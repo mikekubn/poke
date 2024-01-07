@@ -21,9 +21,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }): React.ReactEle
   return (
     <html lang="en">
       <Providers>
-        <body className={clsx(inter.className, 'px-2 md:px-4 text-blue-900')}>
+        <body className={clsx(inter.className, 'text-blue-900')}>
           <Header />
-          {children}
+          <main className="px-4 md:px-6">{children}</main>
         </body>
       </Providers>
     </html>
