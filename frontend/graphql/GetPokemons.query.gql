@@ -1,7 +1,18 @@
 query PokemonsQueryInput($limit: Int, $offset: Int) {
   pokemons(query: { limit: $limit, offset: $offset }) {
     edges {
+      id
       name
+      image
+      isFavorite
+      attacks {
+        fast {
+          name
+        }
+        special {
+          name
+        }
+      }
     }
   }
 }
