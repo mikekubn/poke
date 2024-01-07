@@ -73,6 +73,23 @@ export const ParagraphBase = ({
   </p>
 );
 
+export const ParagraphLarge = ({
+  children,
+  className,
+  font,
+}: ITypography<HTMLParagraphElement>): React.ReactElement => (
+  <p
+    className={clsx(
+      className,
+      baseClassParagraph,
+      'text-base md:text-lg',
+      getTypographyFonts(font)
+    )}
+  >
+    {children}
+  </p>
+);
+
 const baseClassHeader = 'leading-more-loose md:leading-more-loose';
 const baseClassParagraph = 'leading-more-relaxed md:leading-more-relaxed';
 const getTypographyFonts = (font: Fonts): Record<string, boolean> => ({
