@@ -1,22 +1,19 @@
 'use client';
-import { HeartIcon } from '@heroicons/react/20/solid';
-import clsx from 'clsx';
-import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
-import { H3, ParagraphBase, ParagraphLarge } from '@/components/Typography';
 import {
-  PokemonConnectionQuery,
+  HeartIconButton,
+  IPokemon,
+  PokemonHeader,
+  PokemonImage,
+} from '@/components/PokemonChildrenComponents';
+import { ParagraphBase, ParagraphLarge } from '@/components/Typography';
+import {
   useMutationPokemonFavoriteMutation,
   useMutationPokemonUnFavoriteMutation,
 } from '@/graphql/generated/schema';
 
-interface IPokemonCard {
-  pokemon: PokemonConnectionQuery['pokemons']['edges'][number];
-}
-
-const PokemonCard = ({ pokemon }: IPokemonCard): React.ReactElement => {
+const PokemonCard = ({ pokemon }: IPokemon): React.ReactElement => {
   //TODO add response from un/favorite mutation
   const [sendFavoritePokemon] = useMutationPokemonFavoriteMutation({
     refetchQueries: ['PokemonConnection'],
@@ -35,17 +32,9 @@ const PokemonCard = ({ pokemon }: IPokemonCard): React.ReactElement => {
   };
 
   return (
-    <div className="w-[495px] h-[330px] rounded-3xl flex flex-col shadow-lg p-10 group bg-slate-200/60">
+    <div className="rounded-3xl flex flex-col shadow-lg p-10 group bg-slate-200/60 w-[495px] h-[330px]">
       <div className="inline-flex justify-between mb-4">
-        <Link
-          href={{
-            pathname: `/pokemon/${pokemon?.name}`,
-          }}
-        >
-          <H3 font="bold" className="group-hover:underline underline-offset-2">
-            {pokemon?.name}
-          </H3>
-        </Link>
+        <PokemonHeader pokemon={pokemon} />
         <ParagraphBase font="normal" className="text-black">
           #{pokemon?.id}
         </ParagraphBase>
@@ -65,31 +54,13 @@ const PokemonCard = ({ pokemon }: IPokemonCard): React.ReactElement => {
               ))}
             </ul>
           </div>
-          <button onClick={handleClick}>
-            <HeartIcon
-              className={clsx('h-8 w-8', {
-                'fill-red-600': isFavorite,
-                'fill-white': !isFavorite,
-              })}
-            />
-          </button>
+          <HeartIconButton isFavorite={isFavorite} onClick={handleClick} />
         </div>
-        <Link
-          href={{
-            pathname: `/pokemon/${pokemon?.name}`,
-          }}
-        >
-          <div className="relative object-fill w-[180px] h-[200px]">
-            <Image
-              sizes="(max-width: 768px) 100vw, 33vw"
-              fill
-              priority
-              src={pokemon?.image}
-              alt={pokemon?.name}
-              className="rounded-3xl"
-            />
-          </div>
-        </Link>
+        <PokemonImage
+          pokemon={pokemon}
+          classNameImage="rounded-3xl"
+          className="w-[180px] h-[200px]"
+        />
       </div>
     </div>
   );
