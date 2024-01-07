@@ -8,7 +8,7 @@ import React from 'react';
 
 const navigation = [
   { name: 'Homepage', route: '/', icon: <HomeIcon className="w-8 h-8" /> },
-  { name: 'Favourite', route: '/favourite', icon: <HeartIcon className="w-8 h-8" /> },
+  { name: 'Favourite', route: '/favorites', icon: <HeartIcon className="w-8 h-8" /> },
 ];
 
 const Navigation = (): React.ReactElement => {

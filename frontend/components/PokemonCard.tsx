@@ -1,17 +1,39 @@
 'use client';
 import { HeartIcon } from '@heroicons/react/20/solid';
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 import { H3, ParagraphBase, ParagraphLarge } from '@/components/Typography';
-import { PokemonConnectionQuery } from '@/graphql/generated/schema';
+import {
+  PokemonConnectionQuery,
+  useMutationPokemonFavoriteMutation,
+  useMutationPokemonUnFavoriteMutation,
+} from '@/graphql/generated/schema';
 
 interface IPokemonCard {
   pokemon: PokemonConnectionQuery['pokemons']['edges'][number];
 }
 
 const PokemonCard = ({ pokemon }: IPokemonCard): React.ReactElement => {
+  //TODO add response from un/favorite mutation
+  const [sendFavoritePokemon] = useMutationPokemonFavoriteMutation({
+    refetchQueries: ['PokemonConnection'],
+  });
+  const [sendUnfavoritePokemon] = useMutationPokemonUnFavoriteMutation({
+    refetchQueries: ['PokemonConnection'],
+  });
+  const isFavorite = pokemon?.isFavorite;
+
+  const handleClick = (): void => {
+    if (!isFavorite) {
+      sendFavoritePokemon({ variables: { id: pokemon.id } });
+    } else {
+      sendUnfavoritePokemon({ variables: { id: pokemon.id } });
+    }
+  };
+
   return (
     <div className="w-[495px] h-[330px] rounded-3xl flex flex-col shadow-lg p-10 group bg-slate-200/60">
       <div className="inline-flex justify-between mb-4">
@@ -43,8 +65,13 @@ const PokemonCard = ({ pokemon }: IPokemonCard): React.ReactElement => {
               ))}
             </ul>
           </div>
-          <button>
-            <HeartIcon className="h-8 w-8 fill-red-600" />
+          <button onClick={handleClick}>
+            <HeartIcon
+              className={clsx('h-8 w-8', {
+                'fill-red-600': isFavorite,
+                'fill-white': !isFavorite,
+              })}
+            />
           </button>
         </div>
         <Link

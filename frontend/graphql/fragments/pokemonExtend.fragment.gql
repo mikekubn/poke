@@ -1,0 +1,30 @@
+#import "./pokemon.fragment.gql"
+
+fragment pokemonExtendAtributes on Pokemon {
+  ...pokemonAtributes
+  sound
+  attacks {
+    fast {
+      name
+      type
+      damage
+    }
+    special {
+      name
+      type
+      damage
+    }
+  }
+  weaknesses
+  weight {
+    minimum
+    maximum
+  }
+  height {
+    minimum
+    maximum
+  }
+  evolutions {
+    id
+  }
+}

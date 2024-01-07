@@ -1,6 +1,7 @@
-fragment pokemonAtrinutes on Pokemon {
+fragment pokemonAtributes on Pokemon {
   id
   name
   image
   types
+  isFavorite
 }

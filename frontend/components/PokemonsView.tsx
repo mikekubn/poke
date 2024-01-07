@@ -6,9 +6,11 @@ import { usePokemonConnectionQuery } from '@/graphql/generated/schema';
 
 import { ParagraphLarge } from './Typography';
 
-const PokemonsView = (): React.ReactElement => {
+const PokemonsView = ({ isFavorite }: { isFavorite?: boolean }): React.ReactElement => {
+  const filterValueFavorite = isFavorite ? isFavorite : null;
   const { data, loading, error } = usePokemonConnectionQuery({
-    variables: { limit: 10, offset: 0 },
+    fetchPolicy: 'no-cache',
+    variables: { limit: 10, offset: 0, filter: { isFavorite: filterValueFavorite } },
   });
   const isLoading = !data || loading;
 
