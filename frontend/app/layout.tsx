@@ -23,7 +23,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }): React.ReactEle
       <Providers>
         <body className={clsx(inter.className, 'text-blue-900')}>
           <Header />
-          <main className="px-4 md:px-6">{children}</main>
+          <main className="px-4 md:px-6 flex flex-col">{children}</main>
         </body>
       </Providers>
     </html>

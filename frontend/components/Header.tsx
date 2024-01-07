@@ -17,7 +17,7 @@ const Header = (): React.ReactElement => {
           className="hover:animate-poke-rotate"
         />
       </Link>
-      <H1 font="semibold">Find your Pokemon</H1>
+      <H1 font="regular">Poke - pokemons</H1>
       <Navigation />
     </header>
   );

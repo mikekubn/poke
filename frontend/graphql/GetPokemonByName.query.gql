@@ -1,0 +1,7 @@
+#import "./fragments/pokemon.fragment.gql"
+
+query Pokemon($name: String!) {
+  pokemonByName(name: $name) {
+    ...pokemonAtrinutes
+  }
+}

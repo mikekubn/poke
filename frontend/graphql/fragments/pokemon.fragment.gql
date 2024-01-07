@@ -1,0 +1,6 @@
+fragment pokemonAtrinutes on Pokemon {
+  id
+  name
+  image
+  types
+}
