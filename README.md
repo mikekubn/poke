@@ -1,8 +1,12 @@
 # Poke
 
+### Apollo client cache issues
+
+- For some reason, I am not able merge queries result in apollo cache. I have tried lot of workaround without success result. Bug has impact to searchQuery and reset states, fetchMore which cannot be use, because app not merge results together.
+
 ### TODO Tasks
 
-- `TODO.md`
+- [TODO Tasks](https://github.com/mikekubn/poke/blob/main/TODO.md), the tasks should be delivered future.
 
 ### Technology
 

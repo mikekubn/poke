@@ -11,15 +11,18 @@ const PokemonsView = ({ isFavorite }: { isFavorite?: boolean }): React.ReactElem
   const filterValueFavorite = isFavorite ? isFavorite : null;
   const [pokemonType, setPokemonType] = React.useState('');
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [searchTrigger, setSearchTrigger] = React.useState(false);
   const [isGrid, setIsGrid] = React.useState(true);
   const toggleGrid = (): void => setIsGrid((val) => !val);
+  const toggleSearch = (): void => setSearchTrigger((val) => !val);
   const { data: pokemonTypesData, loading: isLoadingPokemonTypes } = usePokemonTypesQuery();
   const { data, loading, error } = usePokemonConnectionQuery({
-    fetchPolicy: 'no-cache', //Hotfix: reloade cache, if somehting change withou reloade
+    // fetchPolicy: 'no-cache', //Hotfix: reloade cache, if somehting change withou reloade
+    notifyOnNetworkStatusChange: true,
     variables: {
       limit: 10,
       offset: 0,
-      search: searchQuery,
+      search: searchTrigger ? searchQuery : null,
       filter: { isFavorite: filterValueFavorite, type: pokemonType },
     },
   });
@@ -48,17 +51,25 @@ const PokemonsView = ({ isFavorite }: { isFavorite?: boolean }): React.ReactElem
           pokemonTypes={pokemonTypesData?.pokemonTypes}
           isLoading={isLoadingPokemonTypes}
         />
-        <input
-          type="text"
-          name="searchQuery"
-          className="h-10 w-48 border border-blue-900 rounded-lg p-2 bg-slate-50 hover:bg-slate-100"
-          placeholder="Find your pokemon..."
-          value={searchQuery}
-          onChange={(e) => {
-            e.preventDefault();
-            setSearchQuery(e.target.value);
-          }}
-        />
+        <div className="inline-flex">
+          <input
+            type="text"
+            name="searchQuery"
+            className="h-10 w-48 border border-blue-900 rounded-l-lg p-2 bg-slate-50 hover:bg-slate-100"
+            placeholder="Find your pokemon..."
+            value={searchQuery}
+            onChange={(e) => {
+              e.preventDefault();
+              setSearchQuery(e.target.value);
+            }}
+          />
+          <button
+            className="border-r border-b border-t border-blue-900 rounded-r-lg h-10 px-4 hover:underline bg-slate-100 shadow-md"
+            onClick={toggleSearch}
+          >
+            <ParagraphBase font="regular">Start search</ParagraphBase>
+          </button>
+        </div>
       </div>
       <section className="flex flex-1 flex-wrap justify-center gap-6 my-10">
         {data?.pokemons.edges?.map((pokemon) => {
