@@ -34,7 +34,7 @@ const PokemonTypesListbox = ({
     <div className="h-10 w-44">
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative">
-          <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-slate-50 hover:bg-slate-100 py-2 pl-3 pr-10 border border-blue-900">
+          <Listbox.Button className="relative w-full cursor-pointer rounded-lg bg-slate-50 hover:bg-slate-100 h-10 pl-3 pr-10 border border-blue-900">
             <ParagraphBase font="normal" className="block truncate">
               {hasSelectedItem}
             </ParagraphBase>

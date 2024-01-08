@@ -18,3 +18,4 @@
   - [ ] - Add e2e tests pipeline (split to smoke and coverage), depenedencies [unit-tests:pipeline]
 - [ ] chore-12: Add error boundary for whole application
 - [ ] chore-13: Add loading states for components
+- [ ] chore-14: Add & Fix responsive design
