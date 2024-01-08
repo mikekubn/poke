@@ -1,7 +1,14 @@
-query PokemonsQueryInput($limit: Int, $offset: Int) {
-  pokemons(query: { limit: $limit, offset: $offset }) {
+#import "./fragments/pokemon.fragment.gql"
+
+input PokemonFilterInput {
+  isFavorite: Boolean
+  type: String
+}
+
+query PokemonConnection($limit: Int, $offset: Int, $search: String, $filter: PokemonFilterInput) {
+  pokemons(query: { limit: $limit, offset: $offset, search: $search, filter: $filter }) {
     edges {
-      name
+      ...pokemonAtributes
     }
   }
 }

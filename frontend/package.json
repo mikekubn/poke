@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm run codegen && next dev",
-    "build": "next build",
+    "build": "npm run codegen && next build",
     "start": "next start",
     "ts:check": "npx tsc",
     "lint": "next lint",
@@ -15,6 +15,9 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.8",
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.1.1",
+    "clsx": "^2.1.0",
     "graphql": "^16.8.1",
     "next": "14.0.4",
     "react": "^18",
