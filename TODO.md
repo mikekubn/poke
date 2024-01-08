@@ -1,7 +1,7 @@
 # TODO Tasks
 
 - [x] chore-1: Application structure & logic
-- [ ] chore-2: Search for Pokemon by text through use of a search bar.
+- [x] chore-2: Search for Pokemon by text through use of a search bar.
 - [x] chore-3: Filter Pokemon by type using a dropdown.
 - [x] chore-4: Add and remove a Pokemon to and from your Favorites by clicking the heart icon.
 - [x] chore-5: Use tabs to switch between `All` Pokemon and `Favorite` Pokemon views.

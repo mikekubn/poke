@@ -6,7 +6,11 @@ import Link from 'next/link';
 import React from 'react';
 
 import { H3, ParagraphBase } from '@/components/Typography';
-import { PokemonConnectionQuery } from '@/graphql/generated/schema';
+import {
+  PokemonConnectionQuery,
+  useMutationPokemonFavoriteMutation,
+  useMutationPokemonUnFavoriteMutation,
+} from '@/graphql/generated/schema';
 
 export interface IPokemon {
   pokemon: PokemonConnectionQuery['pokemons']['edges'][number];
@@ -58,19 +62,32 @@ export const PokemonHeader = ({ pokemon }: IPokemon): React.ReactElement => (
   </Link>
 );
 
-export const HeartIconButton = ({
-  isFavorite,
-  onClick,
-}: {
-  isFavorite: boolean;
-  onClick: () => void;
-}): React.ReactElement => (
-  <button onClick={onClick}>
-    <HeartIcon
-      className={clsx('h-8 w-8', {
-        'fill-red-600': isFavorite,
-        'fill-white': !isFavorite,
-      })}
-    />
-  </button>
-);
+export const HeartIconButton = ({ pokemon }: IPokemon): React.ReactElement => {
+  //TODO add response from un/favorite mutation
+  const [sendFavoritePokemon] = useMutationPokemonFavoriteMutation({
+    refetchQueries: ['PokemonConnection', 'Pokemon'],
+  });
+  const [sendUnfavoritePokemon] = useMutationPokemonUnFavoriteMutation({
+    refetchQueries: ['PokemonConnection', 'Pokemon'],
+  });
+  const isFavorite = pokemon?.isFavorite;
+
+  const handleClick = (): void => {
+    if (!isFavorite) {
+      sendFavoritePokemon({ variables: { id: pokemon.id } });
+    } else {
+      sendUnfavoritePokemon({ variables: { id: pokemon.id } });
+    }
+  };
+
+  return (
+    <button onClick={handleClick}>
+      <HeartIcon
+        className={clsx('h-8 w-8', {
+          'fill-red-600': isFavorite,
+          'fill-white': !isFavorite,
+        })}
+      />
+    </button>
+  );
+};
