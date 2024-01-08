@@ -1,0 +1,18 @@
+version: '3'
+services:
+  server:
+    build: ./backend
+    expose:
+      - 4000
+    ports:
+      - 4000:4000
+    command: "node index.js"
+  client:
+    build: ./frontend
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    links:
+      - server 
+    command: npm run start

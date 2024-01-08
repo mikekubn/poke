@@ -3,7 +3,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import React from 'react';
 
 const client = new ApolloClient({
-  uri: 'http://localhost:4000/graphql',
+  uri: 'http://127.0.0.1:4000/graphql',
   //TODO: fix memory cache for pokemons. Memory cache return data without affect to app.
   cache: new InMemoryCache({
     typePolicies: {

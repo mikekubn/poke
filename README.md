@@ -12,6 +12,27 @@
 
 You are free to use whatever stack you want but what we value the most is [Next.js](https://nextjs.org/) and [Apollo](https://www.apollographql.com/).
 
+### Start with Dockerfile
+
+```
+$ cd backend
+$ docker build -t poke-be .
+$ docker run -p 4000:4000 poke-be
+```
+
+```
+$ cd frontend
+$ docker build -t poke-fe .
+$ docker run -p 3000:3000 poke-fe
+```
+
+- use docker compose
+
+```
+$ docker-compose build
+$ docker-compose up
+```
+
 ### Backend (`/backend`)
 
 We have provided you with a simple [GraphQL](https://graphql.org/learn) server that serves Pokemon data. The server is non-persistent and therefore on server restart, data will reset.

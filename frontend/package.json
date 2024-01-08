@@ -2,9 +2,10 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://server:4000",
   "scripts": {
     "dev": "npm run codegen && next dev",
-    "build": "npm run codegen && next build",
+    "build": "next build",
     "start": "next start",
     "ts:check": "npx tsc",
     "lint": "next lint",
