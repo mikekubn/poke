@@ -9,7 +9,7 @@ import { ParagraphBase, ParagraphLarge } from './Typography';
 
 const PokemonsView = ({ isFavorite }: { isFavorite?: boolean }): React.ReactElement => {
   const filterValueFavorite = isFavorite ? isFavorite : null;
-  const [isGrid, setIsGrid] = React.useState(false);
+  const [isGrid, setIsGrid] = React.useState(true);
   const toggleGrid = (): void => setIsGrid((val) => !val);
   const { data, loading, error } = usePokemonConnectionQuery({
     fetchPolicy: 'no-cache', //Hotfix: reloade cache, if somehting change withou reloade

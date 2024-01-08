@@ -1,5 +1,9 @@
 # Poke
 
+### TODO Tasks
+
+- `TODO.md`
+
 ### Technology
 
 You are free to use whatever stack you want but what we value the most is [Next.js](https://nextjs.org/) and [Apollo](https://www.apollographql.com/).
@@ -29,6 +33,14 @@ query { pokemons(query: { limit: 10, offset: 0 }) { edges { name } } }
 I have decided to use apollo client without support ssr nextjs, because I read article, regarding with rc and experimental library for it: [Apollo blog](https://www.apollographql.com/blog/how-to-use-apollo-client-with-next-js-13)
 
 Before you start with frontend part, please you should check codegen documentation for grapqhl auto generate queries and mutations.
+
+If you want use just types and queries/mutations, you can run:
+
+```
+$ cd frontend
+$ npm install
+$ npm codegen
+```
 
 To run the server:
 
