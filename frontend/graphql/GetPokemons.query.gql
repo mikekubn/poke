@@ -2,10 +2,11 @@
 
 input PokemonFilterInput {
   isFavorite: Boolean
+  type: String
 }
 
-query PokemonConnection($limit: Int, $offset: Int, $filter: PokemonFilterInput) {
-  pokemons(query: { limit: $limit, offset: $offset, filter: $filter }) {
+query PokemonConnection($limit: Int, $offset: Int, $search: String, $filter: PokemonFilterInput) {
+  pokemons(query: { limit: $limit, offset: $offset, search: $search, filter: $filter }) {
     edges {
       ...pokemonAtributes
     }
