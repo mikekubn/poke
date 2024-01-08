@@ -8,7 +8,7 @@
 - [x] chore-6: Change the view from either a grid or list.
 - [x] chore-7: View Pokemon details using a `/:name` route.
 - [x] chore-8: Clicking on a Pokemon image or name should navigate to the above route to view the Pokemon details.
-- [ ] chore-9: Add Dockerfile with docker-compose for backend & frontend
+- [x] chore-9: Add Dockerfile with docker-compose for backend & frontend
 - [ ] chore-10: Setup test environemnt (Jest - unit tests, cypress for e2e tests)
 - [ ] chore-11: Add and setup CI/CD for GitHub actions
   - [ ] - Add tsc check pipeline

@@ -5,17 +5,21 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = {
+  [_ in K]?: never;
+};
+export type Incremental<T> =
+  | T
+  | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  Upload: { input: any; output: any; }
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  Upload: { input: any; output: any };
 };
 
 export type Attack = {
@@ -27,7 +31,7 @@ export type Attack = {
 
 export enum CacheControlScope {
   Private = 'PRIVATE',
-  Public = 'PUBLIC'
+  Public = 'PUBLIC',
 }
 
 export type Mutation = {
@@ -36,11 +40,9 @@ export type Mutation = {
   unFavoritePokemon?: Maybe<Pokemon>;
 };
 
-
 export type MutationFavoritePokemonArgs = {
   id: Scalars['ID']['input'];
 };
-
 
 export type MutationUnFavoritePokemonArgs = {
   id: Scalars['ID']['input'];
@@ -114,16 +116,13 @@ export type Query = {
   pokemons: PokemonConnection;
 };
 
-
 export type QueryPokemonByIdArgs = {
   id: Scalars['ID']['input'];
 };
 
-
 export type QueryPokemonByNameArgs = {
   name: Scalars['String']['input'];
 };
-
 
 export type QueryPokemonsArgs = {
   query: PokemonsQueryInput;
@@ -138,13 +137,31 @@ export type PokemonQueryVariables = Exact<{
   name: Scalars['String']['input'];
 }>;
 
+export type PokemonQuery = {
+  __typename?: 'Query';
+  pokemonByName?: {
+    __typename?: 'Pokemon';
+    sound: string;
+    weaknesses: Array<string>;
+    id: string;
+    name: string;
+    image: string;
+    types: Array<string>;
+    isFavorite: boolean;
+    attacks: {
+      __typename?: 'PokemonAttack';
+      fast: Array<{ __typename?: 'Attack'; name: string; type: string; damage: number }>;
+      special: Array<{ __typename?: 'Attack'; name: string; type: string; damage: number }>;
+    };
+    weight: { __typename?: 'PokemonDimension'; minimum: string; maximum: string };
+    height: { __typename?: 'PokemonDimension'; minimum: string; maximum: string };
+    evolutions: Array<{ __typename?: 'Pokemon'; id: string; name: string; image: string }>;
+  } | null;
+};
 
-export type PokemonQuery = { __typename?: 'Query', pokemonByName?: { __typename?: 'Pokemon', sound: string, weaknesses: Array<string>, id: string, name: string, image: string, types: Array<string>, isFavorite: boolean, attacks: { __typename?: 'PokemonAttack', fast: Array<{ __typename?: 'Attack', name: string, type: string, damage: number }>, special: Array<{ __typename?: 'Attack', name: string, type: string, damage: number }> }, weight: { __typename?: 'PokemonDimension', minimum: string, maximum: string }, height: { __typename?: 'PokemonDimension', minimum: string, maximum: string }, evolutions: Array<{ __typename?: 'Pokemon', id: string, name: string, image: string }> } | null };
+export type PokemonTypesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type PokemonTypesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type PokemonTypesQuery = { __typename?: 'Query', pokemonTypes: Array<string> };
+export type PokemonTypesQuery = { __typename?: 'Query'; pokemonTypes: Array<string> };
 
 export type PokemonConnectionQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -153,75 +170,117 @@ export type PokemonConnectionQueryVariables = Exact<{
   filter?: InputMaybe<PokemonFilterInput>;
 }>;
 
-
-export type PokemonConnectionQuery = { __typename?: 'Query', pokemons: { __typename?: 'PokemonConnection', edges: Array<{ __typename?: 'Pokemon', id: string, name: string, image: string, types: Array<string>, isFavorite: boolean }> } };
+export type PokemonConnectionQuery = {
+  __typename?: 'Query';
+  pokemons: {
+    __typename?: 'PokemonConnection';
+    edges: Array<{
+      __typename?: 'Pokemon';
+      id: string;
+      name: string;
+      image: string;
+      types: Array<string>;
+      isFavorite: boolean;
+    }>;
+  };
+};
 
 export type MutationPokemonUnFavoriteMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
-
-export type MutationPokemonUnFavoriteMutation = { __typename?: 'Mutation', unFavoritePokemon?: { __typename?: 'Pokemon', id: string } | null };
+export type MutationPokemonUnFavoriteMutation = {
+  __typename?: 'Mutation';
+  unFavoritePokemon?: { __typename?: 'Pokemon'; id: string } | null;
+};
 
 export type MutationPokemonFavoriteMutationVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
+export type MutationPokemonFavoriteMutation = {
+  __typename?: 'Mutation';
+  favoritePokemon?: { __typename?: 'Pokemon'; id: string } | null;
+};
 
-export type MutationPokemonFavoriteMutation = { __typename?: 'Mutation', favoritePokemon?: { __typename?: 'Pokemon', id: string } | null };
+export type PokemonAtributesFragment = {
+  __typename?: 'Pokemon';
+  id: string;
+  name: string;
+  image: string;
+  types: Array<string>;
+  isFavorite: boolean;
+};
 
-export type PokemonAtributesFragment = { __typename?: 'Pokemon', id: string, name: string, image: string, types: Array<string>, isFavorite: boolean };
-
-export type PokemonExtendAtributesFragment = { __typename?: 'Pokemon', sound: string, weaknesses: Array<string>, id: string, name: string, image: string, types: Array<string>, isFavorite: boolean, attacks: { __typename?: 'PokemonAttack', fast: Array<{ __typename?: 'Attack', name: string, type: string, damage: number }>, special: Array<{ __typename?: 'Attack', name: string, type: string, damage: number }> }, weight: { __typename?: 'PokemonDimension', minimum: string, maximum: string }, height: { __typename?: 'PokemonDimension', minimum: string, maximum: string }, evolutions: Array<{ __typename?: 'Pokemon', id: string, name: string, image: string }> };
+export type PokemonExtendAtributesFragment = {
+  __typename?: 'Pokemon';
+  sound: string;
+  weaknesses: Array<string>;
+  id: string;
+  name: string;
+  image: string;
+  types: Array<string>;
+  isFavorite: boolean;
+  attacks: {
+    __typename?: 'PokemonAttack';
+    fast: Array<{ __typename?: 'Attack'; name: string; type: string; damage: number }>;
+    special: Array<{ __typename?: 'Attack'; name: string; type: string; damage: number }>;
+  };
+  weight: { __typename?: 'PokemonDimension'; minimum: string; maximum: string };
+  height: { __typename?: 'PokemonDimension'; minimum: string; maximum: string };
+  evolutions: Array<{ __typename?: 'Pokemon'; id: string; name: string; image: string }>;
+};
 
 export const PokemonAtributesFragmentDoc = gql`
-    fragment pokemonAtributes on Pokemon {
-  id
-  name
-  image
-  types
-  isFavorite
-}
-    `;
-export const PokemonExtendAtributesFragmentDoc = gql`
-    fragment pokemonExtendAtributes on Pokemon {
-  ...pokemonAtributes
-  sound
-  attacks {
-    fast {
-      name
-      type
-      damage
-    }
-    special {
-      name
-      type
-      damage
-    }
-  }
-  weaknesses
-  weight {
-    minimum
-    maximum
-  }
-  height {
-    minimum
-    maximum
-  }
-  evolutions {
+  fragment pokemonAtributes on Pokemon {
     id
     name
     image
+    types
+    isFavorite
   }
-}
-    ${PokemonAtributesFragmentDoc}`;
+`;
+export const PokemonExtendAtributesFragmentDoc = gql`
+  fragment pokemonExtendAtributes on Pokemon {
+    ...pokemonAtributes
+    sound
+    attacks {
+      fast {
+        name
+        type
+        damage
+      }
+      special {
+        name
+        type
+        damage
+      }
+    }
+    weaknesses
+    weight {
+      minimum
+      maximum
+    }
+    height {
+      minimum
+      maximum
+    }
+    evolutions {
+      id
+      name
+      image
+    }
+  }
+  ${PokemonAtributesFragmentDoc}
+`;
 export const PokemonDocument = gql`
-    query Pokemon($name: String!) {
-  pokemonByName(name: $name) {
-    ...pokemonExtendAtributes
+  query Pokemon($name: String!) {
+    pokemonByName(name: $name) {
+      ...pokemonExtendAtributes
+    }
   }
-}
-    ${PokemonExtendAtributesFragmentDoc}`;
+  ${PokemonExtendAtributesFragmentDoc}
+`;
 
 /**
  * __usePokemonQuery__
@@ -239,27 +298,33 @@ export const PokemonDocument = gql`
  *   },
  * });
  */
-export function usePokemonQuery(baseOptions: Apollo.QueryHookOptions<PokemonQuery, PokemonQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PokemonQuery, PokemonQueryVariables>(PokemonDocument, options);
-      }
-export function usePokemonLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PokemonQuery, PokemonQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PokemonQuery, PokemonQueryVariables>(PokemonDocument, options);
-        }
-export function usePokemonSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<PokemonQuery, PokemonQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<PokemonQuery, PokemonQueryVariables>(PokemonDocument, options);
-        }
+export function usePokemonQuery(
+  baseOptions: Apollo.QueryHookOptions<PokemonQuery, PokemonQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<PokemonQuery, PokemonQueryVariables>(PokemonDocument, options);
+}
+export function usePokemonLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<PokemonQuery, PokemonQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<PokemonQuery, PokemonQueryVariables>(PokemonDocument, options);
+}
+export function usePokemonSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<PokemonQuery, PokemonQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<PokemonQuery, PokemonQueryVariables>(PokemonDocument, options);
+}
 export type PokemonQueryHookResult = ReturnType<typeof usePokemonQuery>;
 export type PokemonLazyQueryHookResult = ReturnType<typeof usePokemonLazyQuery>;
 export type PokemonSuspenseQueryHookResult = ReturnType<typeof usePokemonSuspenseQuery>;
 export type PokemonQueryResult = Apollo.QueryResult<PokemonQuery, PokemonQueryVariables>;
 export const PokemonTypesDocument = gql`
-    query PokemonTypes {
-  pokemonTypes
-}
-    `;
+  query PokemonTypes {
+    pokemonTypes
+  }
+`;
 
 /**
  * __usePokemonTypesQuery__
@@ -276,33 +341,50 @@ export const PokemonTypesDocument = gql`
  *   },
  * });
  */
-export function usePokemonTypesQuery(baseOptions?: Apollo.QueryHookOptions<PokemonTypesQuery, PokemonTypesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PokemonTypesQuery, PokemonTypesQueryVariables>(PokemonTypesDocument, options);
-      }
-export function usePokemonTypesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PokemonTypesQuery, PokemonTypesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PokemonTypesQuery, PokemonTypesQueryVariables>(PokemonTypesDocument, options);
-        }
-export function usePokemonTypesSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<PokemonTypesQuery, PokemonTypesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<PokemonTypesQuery, PokemonTypesQueryVariables>(PokemonTypesDocument, options);
-        }
+export function usePokemonTypesQuery(
+  baseOptions?: Apollo.QueryHookOptions<PokemonTypesQuery, PokemonTypesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<PokemonTypesQuery, PokemonTypesQueryVariables>(
+    PokemonTypesDocument,
+    options
+  );
+}
+export function usePokemonTypesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<PokemonTypesQuery, PokemonTypesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<PokemonTypesQuery, PokemonTypesQueryVariables>(
+    PokemonTypesDocument,
+    options
+  );
+}
+export function usePokemonTypesSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<PokemonTypesQuery, PokemonTypesQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<PokemonTypesQuery, PokemonTypesQueryVariables>(
+    PokemonTypesDocument,
+    options
+  );
+}
 export type PokemonTypesQueryHookResult = ReturnType<typeof usePokemonTypesQuery>;
 export type PokemonTypesLazyQueryHookResult = ReturnType<typeof usePokemonTypesLazyQuery>;
 export type PokemonTypesSuspenseQueryHookResult = ReturnType<typeof usePokemonTypesSuspenseQuery>;
-export type PokemonTypesQueryResult = Apollo.QueryResult<PokemonTypesQuery, PokemonTypesQueryVariables>;
+export type PokemonTypesQueryResult = Apollo.QueryResult<
+  PokemonTypesQuery,
+  PokemonTypesQueryVariables
+>;
 export const PokemonConnectionDocument = gql`
-    query PokemonConnection($limit: Int, $offset: Int, $search: String, $filter: PokemonFilterInput) {
-  pokemons(
-    query: {limit: $limit, offset: $offset, search: $search, filter: $filter}
-  ) {
-    edges {
-      ...pokemonAtributes
+  query PokemonConnection($limit: Int, $offset: Int, $search: String, $filter: PokemonFilterInput) {
+    pokemons(query: { limit: $limit, offset: $offset, search: $search, filter: $filter }) {
+      edges {
+        ...pokemonAtributes
+      }
     }
   }
-}
-    ${PokemonAtributesFragmentDoc}`;
+  ${PokemonAtributesFragmentDoc}
+`;
 
 /**
  * __usePokemonConnectionQuery__
@@ -323,30 +405,56 @@ export const PokemonConnectionDocument = gql`
  *   },
  * });
  */
-export function usePokemonConnectionQuery(baseOptions?: Apollo.QueryHookOptions<PokemonConnectionQuery, PokemonConnectionQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<PokemonConnectionQuery, PokemonConnectionQueryVariables>(PokemonConnectionDocument, options);
-      }
-export function usePokemonConnectionLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PokemonConnectionQuery, PokemonConnectionQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<PokemonConnectionQuery, PokemonConnectionQueryVariables>(PokemonConnectionDocument, options);
-        }
-export function usePokemonConnectionSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<PokemonConnectionQuery, PokemonConnectionQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<PokemonConnectionQuery, PokemonConnectionQueryVariables>(PokemonConnectionDocument, options);
-        }
+export function usePokemonConnectionQuery(
+  baseOptions?: Apollo.QueryHookOptions<PokemonConnectionQuery, PokemonConnectionQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<PokemonConnectionQuery, PokemonConnectionQueryVariables>(
+    PokemonConnectionDocument,
+    options
+  );
+}
+export function usePokemonConnectionLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<PokemonConnectionQuery, PokemonConnectionQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<PokemonConnectionQuery, PokemonConnectionQueryVariables>(
+    PokemonConnectionDocument,
+    options
+  );
+}
+export function usePokemonConnectionSuspenseQuery(
+  baseOptions?: Apollo.SuspenseQueryHookOptions<
+    PokemonConnectionQuery,
+    PokemonConnectionQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<PokemonConnectionQuery, PokemonConnectionQueryVariables>(
+    PokemonConnectionDocument,
+    options
+  );
+}
 export type PokemonConnectionQueryHookResult = ReturnType<typeof usePokemonConnectionQuery>;
 export type PokemonConnectionLazyQueryHookResult = ReturnType<typeof usePokemonConnectionLazyQuery>;
-export type PokemonConnectionSuspenseQueryHookResult = ReturnType<typeof usePokemonConnectionSuspenseQuery>;
-export type PokemonConnectionQueryResult = Apollo.QueryResult<PokemonConnectionQuery, PokemonConnectionQueryVariables>;
+export type PokemonConnectionSuspenseQueryHookResult = ReturnType<
+  typeof usePokemonConnectionSuspenseQuery
+>;
+export type PokemonConnectionQueryResult = Apollo.QueryResult<
+  PokemonConnectionQuery,
+  PokemonConnectionQueryVariables
+>;
 export const MutationPokemonUnFavoriteDocument = gql`
-    mutation MutationPokemonUnFavorite($id: ID!) {
-  unFavoritePokemon(id: $id) {
-    id
+  mutation MutationPokemonUnFavorite($id: ID!) {
+    unFavoritePokemon(id: $id) {
+      id
+    }
   }
-}
-    `;
-export type MutationPokemonUnFavoriteMutationFn = Apollo.MutationFunction<MutationPokemonUnFavoriteMutation, MutationPokemonUnFavoriteMutationVariables>;
+`;
+export type MutationPokemonUnFavoriteMutationFn = Apollo.MutationFunction<
+  MutationPokemonUnFavoriteMutation,
+  MutationPokemonUnFavoriteMutationVariables
+>;
 
 /**
  * __useMutationPokemonUnFavoriteMutation__
@@ -365,21 +473,38 @@ export type MutationPokemonUnFavoriteMutationFn = Apollo.MutationFunction<Mutati
  *   },
  * });
  */
-export function useMutationPokemonUnFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<MutationPokemonUnFavoriteMutation, MutationPokemonUnFavoriteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MutationPokemonUnFavoriteMutation, MutationPokemonUnFavoriteMutationVariables>(MutationPokemonUnFavoriteDocument, options);
-      }
-export type MutationPokemonUnFavoriteMutationHookResult = ReturnType<typeof useMutationPokemonUnFavoriteMutation>;
-export type MutationPokemonUnFavoriteMutationResult = Apollo.MutationResult<MutationPokemonUnFavoriteMutation>;
-export type MutationPokemonUnFavoriteMutationOptions = Apollo.BaseMutationOptions<MutationPokemonUnFavoriteMutation, MutationPokemonUnFavoriteMutationVariables>;
-export const MutationPokemonFavoriteDocument = gql`
-    mutation MutationPokemonFavorite($id: ID!) {
-  favoritePokemon(id: $id) {
-    id
-  }
+export function useMutationPokemonUnFavoriteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    MutationPokemonUnFavoriteMutation,
+    MutationPokemonUnFavoriteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    MutationPokemonUnFavoriteMutation,
+    MutationPokemonUnFavoriteMutationVariables
+  >(MutationPokemonUnFavoriteDocument, options);
 }
-    `;
-export type MutationPokemonFavoriteMutationFn = Apollo.MutationFunction<MutationPokemonFavoriteMutation, MutationPokemonFavoriteMutationVariables>;
+export type MutationPokemonUnFavoriteMutationHookResult = ReturnType<
+  typeof useMutationPokemonUnFavoriteMutation
+>;
+export type MutationPokemonUnFavoriteMutationResult =
+  Apollo.MutationResult<MutationPokemonUnFavoriteMutation>;
+export type MutationPokemonUnFavoriteMutationOptions = Apollo.BaseMutationOptions<
+  MutationPokemonUnFavoriteMutation,
+  MutationPokemonUnFavoriteMutationVariables
+>;
+export const MutationPokemonFavoriteDocument = gql`
+  mutation MutationPokemonFavorite($id: ID!) {
+    favoritePokemon(id: $id) {
+      id
+    }
+  }
+`;
+export type MutationPokemonFavoriteMutationFn = Apollo.MutationFunction<
+  MutationPokemonFavoriteMutation,
+  MutationPokemonFavoriteMutationVariables
+>;
 
 /**
  * __useMutationPokemonFavoriteMutation__
@@ -398,10 +523,24 @@ export type MutationPokemonFavoriteMutationFn = Apollo.MutationFunction<Mutation
  *   },
  * });
  */
-export function useMutationPokemonFavoriteMutation(baseOptions?: Apollo.MutationHookOptions<MutationPokemonFavoriteMutation, MutationPokemonFavoriteMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MutationPokemonFavoriteMutation, MutationPokemonFavoriteMutationVariables>(MutationPokemonFavoriteDocument, options);
-      }
-export type MutationPokemonFavoriteMutationHookResult = ReturnType<typeof useMutationPokemonFavoriteMutation>;
-export type MutationPokemonFavoriteMutationResult = Apollo.MutationResult<MutationPokemonFavoriteMutation>;
-export type MutationPokemonFavoriteMutationOptions = Apollo.BaseMutationOptions<MutationPokemonFavoriteMutation, MutationPokemonFavoriteMutationVariables>;
+export function useMutationPokemonFavoriteMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    MutationPokemonFavoriteMutation,
+    MutationPokemonFavoriteMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    MutationPokemonFavoriteMutation,
+    MutationPokemonFavoriteMutationVariables
+  >(MutationPokemonFavoriteDocument, options);
+}
+export type MutationPokemonFavoriteMutationHookResult = ReturnType<
+  typeof useMutationPokemonFavoriteMutation
+>;
+export type MutationPokemonFavoriteMutationResult =
+  Apollo.MutationResult<MutationPokemonFavoriteMutation>;
+export type MutationPokemonFavoriteMutationOptions = Apollo.BaseMutationOptions<
+  MutationPokemonFavoriteMutation,
+  MutationPokemonFavoriteMutationVariables
+>;
